@@ -1,6 +1,7 @@
 import {useState , useEffect} from "react"
 import Start from "./components/start"
 import Question from "./components/question";
+
 export const App = () => {
 
 const [startVis, setStartVis] = useState(true);
@@ -13,6 +14,7 @@ const hide = () => {
   setStartVis(old => !old)
   console.log(qData)
 }
+
 
 useEffect(()=>{
   fetch("https://the-trivia-api.com/api/questions ")
@@ -40,7 +42,7 @@ const questionElements = () =>{
 return (
   <div>
     {startVis && <Start hide={hide}/>}
-    {!startVis && <div className=" w-10/12 my-10 mx-auto">{questionElements()} </div>}
+    {!startVis && <form className=" w-10/12 my-10 mx-auto">{questionElements()} </form>}
   </div>
 )
 }

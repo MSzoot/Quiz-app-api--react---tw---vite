@@ -1,9 +1,4 @@
-import { useForm } from "react-hook-form";
-
-
 const Question = (props) => {
-    const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
 
     const answers  = [] 
 
@@ -21,15 +16,12 @@ const Question = (props) => {
     randomizeAnswers();
 
     return(
-        <div className=" py-2 my-2 border-b-2 border-gray-300">
-            <h1>{props.question}</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
-            <label><i>{answers[0]}</i><input type="radio"/></label>
-            <label><i>{answers[1]}</i><input type="radio"/></label>
-            <label><i>{answers[2]}</i><input type="radio"/></label>
-            <label><i>{answers[3]}</i><input type="radio"/></label>
-            </form>
-
+        <div className=" pb-6 my-2 border-b-2 border-gray-300">
+            <h1 className=" font-bold mb-2">{props.question}</h1>
+            <label className=" bg-gray-300 px-2 mr-2 text-sm py-1 rounded-lg"><i>{answers[0]}</i><input name="answer" type="radio"/></label>
+            <label className=" bg-gray-300 px-2 mr-2 text-sm py-1 rounded-lg"><i>{answers[1]}</i><input name="answer" type="radio"/></label>
+            <label className=" bg-gray-300 px-2 mr-2 text-sm py-1 rounded-lg"><i>{answers[2]}</i><input name="answer" type="radio"/></label>
+            <label className=" bg-gray-300 px-2 mr-2 text-sm py-1 rounded-lg"><i>{answers[3]}</i><input name="answer" type="radio"/></label>
         </div>
     )
 }
