@@ -16,12 +16,14 @@ const hide = () => {
 }
 
 
+
 useEffect(()=>{
   fetch("https://the-trivia-api.com/api/questions ")
   .then(res => res.json())
   .then((data) => {
     data.splice(5)
-    setqData(data)
+    let editedData = data.map(q => ({...q, marked : false}))
+    setqData(editedData)
   })
 },[])
 
@@ -35,6 +37,8 @@ const questionElements = () =>{
     wrong={obj.incorrectAnswers}
     correct={obj.correctAnswer}
     key={obj.id} 
+    id={obj.id} 
+    marked={obj.marked}
   />
   )
 ))}
