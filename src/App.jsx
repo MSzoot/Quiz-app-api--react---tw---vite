@@ -4,28 +4,48 @@ import Question from "./components/question";
 
 export const App = () => {
 
+  useEffect(()=>{
+    fetch("https://the-trivia-api.com/api/questions ")
+    .then(res => res.json())
+    .then((data) => {
+      data.splice(5)
+      let editedData = data.map(q => ({...q, allAnswers : shuffleAndEdit([...q.incorrectAnswers, q.correctAnswer])}))
+      setqData(editedData)
+    })
+  },[])
+
 const [startVis, setStartVis] = useState(true);
 
 const [qData,setqData] = useState('')
-
-
 
 const hide = () => {
   setStartVis(old => !old)
   console.log(qData)
 }
 
+const shuffleAndEdit = (arr) => {
+  for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr.map((answer) => ({
+      content: answer,
+      choosen: false
+    }))
+  }
 
 
-useEffect(()=>{
-  fetch("https://the-trivia-api.com/api/questions ")
-  .then(res => res.json())
-  .then((data) => {
-    data.splice(5)
-    let editedData = data.map(q => ({...q, marked : false}))
-    setqData(editedData)
-  })
-},[])
+  const handleClick = (ans) => {
+        const upadatedQData = qData.map((item) => ({
+          ...item,
+          allAnswers:item.allAnswers.map((answer) => ({
+            ...answer,
+            choosen: answer.content = ans,     //// something here i think
+          }))
+        }))
+        setqData(upadatedQData)
+        console.log(qData)
+  }
 
 
 
@@ -34,11 +54,10 @@ const questionElements = () =>{
   qData.map(obj => (
   <Question 
     question={obj.question}
-    wrong={obj.incorrectAnswers}
-    correct={obj.correctAnswer}
+    allAnswers = {obj.allAnswers}
     key={obj.id} 
     id={obj.id} 
-    marked={obj.marked}
+    handleClick={handleClick}
   />
   )
 ))}
