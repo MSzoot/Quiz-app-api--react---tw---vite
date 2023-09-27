@@ -1,16 +1,6 @@
 const Question = (props) => {
 
     const answersObjArr = props.allAnswers
-
-    // const handleClick = (ans) => {
-    //     setAnswers(old => old.map(index => {
-    //         return index.content === ans ?
-    //         {...old, content : !old.content} :
-    //         ans
-    //     }))
-    // }
-
-
     
 
     return(
@@ -19,7 +9,10 @@ const Question = (props) => {
                 {answersObjArr.map((answer, index) => (
             <label
                 key={index}
-                className="bg-gray-300 px-2 mr-2 text-sm py-1 rounded-lg">
+                className={answersObjArr.choosen
+                    ? "bg-green-300 px-2 mr-2 text-sm py-1 rounded-lg"
+                    : "bg-gray-300 px-2 mr-2 text-sm py-1 rounded-lg"
+                  }>
             <i>{answer.content}</i>
             <input
                 name={props.id}

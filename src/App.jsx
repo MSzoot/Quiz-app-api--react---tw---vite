@@ -38,16 +38,17 @@ const shuffleAndEdit = (arr) => {
   const handleClick = (ans) => {
         const upadatedQData = qData.map((item) => ({
           ...item,
-          allAnswers:item.allAnswers.map((answer) => ({
-            ...answer,
-            choosen: answer.content = ans,     //// something here i think
-          }))
+          allAnswers:item.allAnswers.map((answer) => 
+            answer.content === ans ? { ...answer, choosen: !answer.choosen } : answer
+          )
         }))
         setqData(upadatedQData)
-        console.log(qData)
   }
 
 
+  useEffect(() => {
+    console.log(qData);
+  }, [qData]); 
 
 const questionElements = () =>{
   return (
