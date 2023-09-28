@@ -12,6 +12,8 @@ export const App = () => {
 
   const [answers,setAnswers] = useState([])
 
+
+//pulls from api and aranges data into predifined states 
   useEffect(()=>{
     fetch("https://the-trivia-api.com/api/questions ")
     .then(res => res.json())
@@ -23,20 +25,29 @@ export const App = () => {
         element.map((ans,index) => ({
           answer : ans,
           chosen:false,
-          isCorrect : index === element.length - 1
+          isCorrect : index === element.length - 1  // not ideal solution but it will do for now ;)
         }))
       );
-      
+      final.forEach(array => {
+        shuffleArray(array)
+      });
       setAnswers(final)
     })
   },[])
 
+  // shuffle function to change place of correct answer
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 
 
 const hide = () => {
   setStartVis(old => !old)
   console.log(answers)
-  // console.log(allData)
+  console.log(questions)
 }
 
 
