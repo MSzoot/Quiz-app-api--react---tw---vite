@@ -4,69 +4,46 @@ import Question from "./components/question";
 
 export const App = () => {
 
+  const [startVis, setStartVis] = useState(true);
+
+  const [allData , setAllData] = useState(null)
+  
+  const [questions,setQuestions] = useState([]);
+
+  const [answers,setAnswers] = useState([])
+
   useEffect(()=>{
     fetch("https://the-trivia-api.com/api/questions ")
     .then(res => res.json())
     .then((data) => {
-      data.splice(5)
-      let editedData = data.map(q => ({...q, allAnswers : shuffleAndEdit([...q.incorrectAnswers, q.correctAnswer])}))
-      setqData(editedData)
+      setAllData(data.splice(5))
+      setQuestions(data.map(res => res.question))
+      const allAnswers = data.map(res => ([...res.incorrectAnswers, res.correctAnswer]))
+      const final = allAnswers.map(element => 
+        element.map((ans,index) => ({
+          answer : ans,
+          chosen:false,
+          isCorrect : index === element.length - 1
+        }))
+      );
+      
+      setAnswers(final)
     })
   },[])
 
-const [startVis, setStartVis] = useState(true);
-
-const [qData,setqData] = useState('')
 
 
 const hide = () => {
   setStartVis(old => !old)
+  console.log(answers)
+  // console.log(allData)
 }
 
-const shuffleAndEdit = (arr) => {
-  for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr.map((answer) => ({
-      content: answer,
-      choosen: false
-    }))
-  }
 
-
-  const handleClick = (ans) => {
-        const upadatedQData = qData.map((item) => ({
-          ...item,
-          allAnswers:item.allAnswers.map((answer) => 
-            answer.content === ans ? { ...answer, choosen: true } : { ...answer, choosen: false }
-          )
-        }))
-        setqData(upadatedQData)
-  }
-
-
-  useEffect(() => {
-    console.log(qData);
-  }, [qData]); 
-
-const questionElements = () =>{
-  return (
-  qData.map(obj => (
-  <Question 
-    question={obj.question}
-    allAnswers = {obj.allAnswers}
-    key={obj.id} 
-    id={obj.id} 
-    handleClick={handleClick}
-  />
-  )
-))}
 
 return (
   <div>
     {startVis && <Start hide={hide}/>}
-    {!startVis && <form className=" w-10/12 my-10 mx-auto">{questionElements()} </form>}
   </div>
 )
 }
