@@ -9,9 +9,9 @@ const Question = (props) => {
                 {answersObjArr.map((answer, index) => (
             <label
                 key={index}
-                className={answersObjArr.choosen
-                    ? "bg-green-300 px-2 mr-2 text-sm py-1 rounded-lg"
-                    : "bg-gray-300 px-2 mr-2 text-sm py-1 rounded-lg"
+                className={answer.choosen
+                    ? "bg-blue-300 px-2 mr-2 text-sm py-1 rounded-lg"
+                    : "bg-red-300 px-2 mr-2 text-sm py-1 rounded-lg"
                   }>
             <i>{answer.content}</i>
             <input

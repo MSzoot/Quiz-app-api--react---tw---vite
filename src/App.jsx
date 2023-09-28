@@ -18,9 +18,9 @@ const [startVis, setStartVis] = useState(true);
 
 const [qData,setqData] = useState('')
 
+
 const hide = () => {
   setStartVis(old => !old)
-  console.log(qData)
 }
 
 const shuffleAndEdit = (arr) => {
@@ -39,7 +39,7 @@ const shuffleAndEdit = (arr) => {
         const upadatedQData = qData.map((item) => ({
           ...item,
           allAnswers:item.allAnswers.map((answer) => 
-            answer.content === ans ? { ...answer, choosen: !answer.choosen } : answer
+            answer.content === ans ? { ...answer, choosen: true } : { ...answer, choosen: false }
           )
         }))
         setqData(upadatedQData)
