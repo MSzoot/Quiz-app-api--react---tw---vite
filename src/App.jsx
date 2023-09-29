@@ -1,6 +1,6 @@
 import {useState , useEffect} from "react"
 import Start from "./components/start"
-import Question from "./components/question";
+// import Question from "./components/question";
 
 export const App = () => {
 
@@ -8,18 +8,15 @@ export const App = () => {
 
   const [allData , setAllData] = useState(null)
   
-  const [questions,setQuestions] = useState([]);
-
   const [answers,setAnswers] = useState([])
 
 
-//pulls from api and aranges data into predifined states 
+    //pulls from api and aranges data into predifined states 
   useEffect(()=>{
     fetch("https://the-trivia-api.com/api/questions ")
     .then(res => res.json())
     .then((data) => {
       setAllData(data.splice(5))
-      setQuestions(data.map(res => res.question))
       const allAnswers = data.map(res => ([...res.incorrectAnswers, res.correctAnswer]))
       const final = allAnswers.map(element => 
         element.map((ans,index) => ({
@@ -46,10 +43,8 @@ export const App = () => {
 
 const hide = () => {
   setStartVis(old => !old)
-  console.log(answers)
-  console.log(questions)
+  console.log(allData)
 }
-
 
 
 return (

@@ -1,3 +1,11 @@
-const Question = () => {}
+// const AnswersComp = (props) => {
+//     return (
+//         <div>
+//             <h1>{props.map(prop => {
 
-export default Question
+//             })}</h1>
+//         </div>
+//     )
+// }
+
+// export default AnswersComp
