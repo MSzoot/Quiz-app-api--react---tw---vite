@@ -9,10 +9,10 @@ const Question = (props) => {
   };
 
   const styles = {
-    default : "bg-gray-200 mx-2 p-1 rounded-lg text-xs",
-    answered : "bg-blue-300 mx-2 p-1 rounded-lg text-xs",
-    correct : "bg-green-300 mx-2 p-1 rounded-lg text-xs",
-    incorrect: "bg-red-300 mx-2 p-1 rounded-lg text-xs"
+    default : "bg-gray-200 mx-2 p-1 rounded-lg text-xs whitespace-nowrap",
+    answered : "bg-blue-300 mx-2 p-1 rounded-lg text-xs whitespace-nowrap",
+    correct : "bg-green-300 mx-2 p-1 rounded-lg text-xs whitespace-nowrap",
+    incorrect: "bg-red-300 mx-2 p-1 rounded-lg text-xs whitespace-nowrap"
   }
 
   useEffect(()=>{
@@ -24,13 +24,7 @@ const Question = (props) => {
             <h1 className="font-bold py-4">{props.question}</h1>
             <div>
             {props.allAnswers.map(answer => (
-               <label key={answer} className={
-                selectedAnswer === answer
-                  ? styles.answered
-                  : props.correct  === answer && props.isAnswered
-                  ? styles.correct
-                  : styles.default
-                    }>{answer}<input type="radio"
+               <label key={answer} className={selectedAnswer === answer ? styles.answered : styles.default }>{answer}<input type="radio"
                     name={props.id} value={answer}
                     checked={selectedAnswer === answer} 
                     onChange={handleRadioChange}/>

@@ -20,18 +20,22 @@ export const App = () => {
 
     // function to mark question as answered and check was it answered correctly ?
     const handleAnswered = (answer) => {
-      const updatedData = allData.map((q) => ({
-        ...q,
-        isAnswered: answer === q.correctAnswer || q.allAnswers.includes(answer),
-        isAnsweredCorrectly: answer === q.correctAnswer,
-      }));
+      const updatedData = allData.map((q) => {
+        if (answer === q.correctAnswer) {
+          return { ...q, isAnsweredCorrectly: true, isAnswered: true };
+        } else if (q.allAnswers.includes(answer)) {
+          return { ...q, isAnswered: true, isAnsweredCorrectly: false };
+        } else {
+          return { ...q }; // No change needed for this question
+        }
+      });
     
       setAllData(updatedData);
     };
 
     // function for button to show results 
     const handleCheckResults = () => {
-      setAllData(old => old.map(q => q.isAnswered ? {...q,showResults:true} : q  )) 
+      setAllData(old => old.map(q => q.isAnswered ? {...q, showResults:true} : q  )) 
     }
 
 
