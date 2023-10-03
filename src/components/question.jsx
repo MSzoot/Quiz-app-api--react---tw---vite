@@ -5,18 +5,36 @@ const Question = (props) => {
 
   const handleRadioChange = (event) => {
     setSelectedAnswer(event.target.value);
+    props.handleAnswered(event.target.value)
   };
+
+  const styles = {
+    default : "bg-gray-200 mx-2 p-1 rounded-lg text-xs",
+    answered : "bg-blue-300 mx-2 p-1 rounded-lg text-xs",
+    correct : "bg-green-300 mx-2 p-1 rounded-lg text-xs",
+    incorrect: "bg-red-300 mx-2 p-1 rounded-lg text-xs"
+  }
 
   useEffect(()=>{
     console.log(selectedAnswer)
   },[selectedAnswer])
 
     return (
-        <div className="w-8/12 mx-auto m-4 pb-4 border-b border-gray-200">
+        <div className="mx-auto m-4 pb-4 border-b border-gray-200">
             <h1 className="font-bold py-4">{props.question}</h1>
             <div>
             {props.allAnswers.map(answer => (
-               <label className={selectedAnswer === answer? "bg-blue-300 mx-2 p-1 rounded-lg text-xs" : "bg-gray-200 mx-2 p-1 rounded-lg text-xs" }>{answer}<input type="radio" name={props.id} value={answer}checked={selectedAnswer === answer} onChange={handleRadioChange}/></label>
+               <label key={answer} className={
+                selectedAnswer === answer
+                  ? styles.answered
+                  : props.correct  === answer && props.isAnswered
+                  ? styles.correct
+                  : styles.default
+                    }>{answer}<input type="radio"
+                    name={props.id} value={answer}
+                    checked={selectedAnswer === answer} 
+                    onChange={handleRadioChange}/>
+               </label>
             ))}
             </div>
         </div>
