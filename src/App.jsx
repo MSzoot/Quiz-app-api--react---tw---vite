@@ -7,6 +7,11 @@ export const App = () => {
   const [startVis, setStartVis] = useState(true);
 
   const [allData , setAllData] = useState([])
+
+  const [tryAgain,setTryAgain] = useState(false)
+
+  const [score, setScore] = useState(0)
+
   
     // shuffle function to change shuffle allAnswers array
     function shuffleArray(array) {
@@ -26,17 +31,27 @@ export const App = () => {
         } else if (q.allAnswers.includes(answer)) {
           return { ...q, isAnswered: true, isAnsweredCorrectly: false };
         } else {
-          return { ...q }; // No change needed for this question
+          return { ...q };
         }
       });
-    
       setAllData(updatedData);
     };
 
     // function for button to show results 
     const handleCheckResults = () => {
-      setAllData(old => old.map(q => q.isAnswered ? {...q, showResults:true} : q  )) 
+      setAllData(old => old.map(q => q.isAnswered ? {...q, showResults:true} : q  ))
     }
+
+    const handleTryAgain = () => {
+      if(allData.every(q => q.showResults === true)){
+      setTryAgain(state => !state)
+      }
+    }
+
+    // simple function to hide starting screen
+    const hide = () => {
+      setStartVis(old => !old)
+    } 
 
 
  // pulls questions from api , and edit fetched data, will fire only once
@@ -52,13 +67,10 @@ export const App = () => {
         showResults  : false 
       }))))
     })
-  },[])
+  },[tryAgain])
 
 
-// simple function to hide starting screen
-const hide = () => {
-  setStartVis(old => !old)
-}
+
 
 useEffect(()=>{
   console.log(allData)
@@ -84,7 +96,9 @@ return (
   <div className="mx-auto w-8/12">
     {startVis && <Start hide={hide}/>}
     {!startVis &&  qElements }
-    {!startVis && <button className=" text-xl text-white font-bold w-52 bg-black rounded-lg mt-5 " onClick={handleCheckResults}>Check answers</button>}
+    {/* {!startVis && <h1 className=" text-center">SCORE : {score}</h1> } */}
+    {!startVis && <button className=" text-xl text-white font-bold w-52 mr-16 bg-black rounded-lg mt-5 " onClick={handleCheckResults}>Check answers</button>}
+    {!startVis && <button className=" text-xl text-white font-bold w-52 bg-black rounded-lg mt-5 " onClick={handleTryAgain}>Try again</button>}
   </div>
 )
 }
