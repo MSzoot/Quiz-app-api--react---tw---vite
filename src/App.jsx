@@ -71,12 +71,6 @@ export const App = () => {
 
 
 
-
-useEffect(()=>{
-  console.log(allData)
-},[allData])
-
-
 // add props to question components 
 const qElements = allData.map(q => (
   <Question

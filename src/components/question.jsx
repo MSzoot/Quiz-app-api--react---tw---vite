@@ -18,10 +18,6 @@ const Question = (props) => {
   }
 
 
-  useEffect(()=>{
-    console.log(selectedAnswer)
-  },[selectedAnswer])
-
     return (
         <div className="mx-auto m-4 pb-4 border-b border-gray-200">
             <h1 className="font-bold py-4">{props.question}</h1>
