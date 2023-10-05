@@ -10,7 +10,7 @@ export const App = () => {
 
   const [tryAgain,setTryAgain] = useState(false)
 
-  const [score, setScore] = useState(0)
+  // const [score, setScore] = useState(0)
 
   
     // shuffle function to change shuffle allAnswers array
